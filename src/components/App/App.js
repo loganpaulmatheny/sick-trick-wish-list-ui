@@ -117,6 +117,26 @@ function App() {
     //   });
   }
 
+  function deleteTrick() {
+    deleteTrick()
+      .then((data) => {
+        console.log("Posted data", data);
+        setTricks([...tricks, data]);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        if (error.message === "500") {
+          setError(
+            "Oopsy daisy, looks like something went wrong, please try again later!"
+          );
+        } else {
+          setError(
+            "Hmmmm, not sure what happened there, check your URL and try again"
+          );
+        }
+      });
+  }
+
   useEffect(() => getTricks(), []);
 
   const clearError = () => {

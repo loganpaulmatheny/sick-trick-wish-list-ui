@@ -7,6 +7,7 @@ function Card({ stance, name, obstacle, tutorial }) {
       <p>{name}</p>
       <p>{obstacle}</p>
       <a href={tutorial}>{tutorial}</a>
+      <p>🗑️</p>
     </div>
   );
 }
