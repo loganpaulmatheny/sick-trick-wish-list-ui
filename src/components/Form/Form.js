@@ -39,48 +39,50 @@ function Form({ addTrick }) {
 
   return (
     <div>
-      <select
-        name="stance"
-        value={stance}
-        onChange={(event) => setStance(event.target.value)}
-      >
-        <option value="Regular">Regular</option>
-        <option value="Switch">Switch</option>
-      </select>
-      <input
-        type="text"
-        placeholder="Enter Trick Name"
-        name="name"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-      />
-      <select
-        name="obstacle"
-        value={obstacle}
-        onChange={(event) => setObstacle(event.target.value)}
-      >
-        <option value="Flatground">Flatground</option>
-        <option value="Ledge">Ledge</option>
-        <option value="Rail">Rail</option>
-        <option value="Stairs">Stairs</option>
-        <option value="Pool">Pool</option>
-      </select>
-      <input
-        type="text"
-        placeholder="Input tutorial"
-        name="tutorial"
-        value={tutorial}
-        onChange={(event) => setTutorial(event.target.value)}
-      />
+      <form action="">
+        <select
+          name="stance"
+          value={stance}
+          onChange={(event) => setStance(event.target.value)}
+        >
+          <option value="Regular">Regular</option>
+          <option value="Switch">Switch</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Enter Trick Name"
+          name="name"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <select
+          name="obstacle"
+          value={obstacle}
+          onChange={(event) => setObstacle(event.target.value)}
+        >
+          <option value="Flatground">Flatground</option>
+          <option value="Ledge">Ledge</option>
+          <option value="Rail">Rail</option>
+          <option value="Stairs">Stairs</option>
+          <option value="Pool">Pool</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Input tutorial"
+          name="tutorial"
+          value={tutorial}
+          onChange={(event) => setTutorial(event.target.value)}
+        />
 
-      <button
-        onClick={(event) => {
-          // how would this behave if it was an onSubmit()
-          submitTrick(event);
-        }}
-      >
-        Submit Your Trick
-      </button>
+        <button
+          onClick={(event) => {
+            // how would this behave if it was an onSubmit()
+            submitTrick(event);
+          }}
+        >
+          Send It
+        </button>
+      </form>
       {formError && <h2 className="form-error">{formError}</h2>}
     </div>
   );

@@ -3,7 +3,20 @@ describe("Testing the initial load of the page", () => {
     cy.intercept("GET", "http://localhost:3001/api/v1/tricks", {
       statusCode: 200,
       fixture: "trick-start-data.json",
-    }).visit("http://localhost:3000");
+    })
+      .as("getRequest")
+      .visit("http://localhost:3000");
+
+    cy.intercept("POST", "http://localhost:3001/api/v1/tricks", {
+      statusCode: 201,
+      body: {
+        stance: "Switch",
+        name: "Kickflip",
+        obstacle: "Ledge",
+        tutorial: "testURL",
+        id: 4,
+      },
+    }).as("postRequest");
   });
 
   it("Should display the correct things on load", () => {
@@ -24,7 +37,11 @@ describe("Testing the initial load of the page", () => {
       .find(".card")
       .as("child")
       .get("@child")
-      .should("have.length", 3);
+      .should("have.length", 3)
+      .get("form")
+      .should("exist")
+      .get("button")
+      .should("contain", "Send It");
   });
   it("Should allow me to provide inputs to the form", () => {
     cy.get("select[name='stance']")
@@ -48,7 +65,7 @@ describe("Testing the initial load of the page", () => {
       .invoke("val")
       .should("equal", "testing");
   });
-  it.only("Should allow the user to add a new trick", () => {
+  it("Should allow the user to add a new trick", () => {
     cy.get("select[name='stance']")
       .select("Switch")
       .get("select[name='obstacle']")
