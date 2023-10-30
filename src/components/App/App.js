@@ -54,13 +54,51 @@ function App() {
       });
   }
 
+  function addTrick(newTrick) {
+    clearError();
+    fetch("http://localhost:3001/api/v1/tricks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newTrick),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Posted data", data);
+        setTricks([...tricks, data]);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        if (error.message === "500") {
+          setError(
+            "Oopsy daisy, looks like something went wrong, please try again later!"
+          );
+        } else {
+          setError(
+            "Hmmmm, not sure what happened there, check your URL and try again"
+          );
+        }
+      });
+  }
+
   useEffect(() => getTricks(), []);
+
+  const clearError = () => {
+    setError("");
+  };
 
   return (
     <div className="App">
       <h1>Sick Trick Wish List</h1>
-      <Form />
+      <Form addTrick={addTrick} />
       <Tricks tricks={tricks} />
+      {error && <h2 className="network-error">{error}</h2>}
     </div>
   );
 }
