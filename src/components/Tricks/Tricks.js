@@ -1,7 +1,7 @@
 import "./Tricks.css";
 import Card from "../Card/Card";
 
-function Tricks({ tricks }) {
+function Tricks({ tricks, deleteTrick }) {
   const trickCards = tricks.map((trick) => {
     return (
       <Card
@@ -11,6 +11,7 @@ function Tricks({ tricks }) {
         tutorial={trick.tutorial}
         id={trick.id}
         key={trick.id}
+        deleteTrick={deleteTrick}
       />
     );
   });

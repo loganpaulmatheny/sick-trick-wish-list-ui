@@ -1,13 +1,19 @@
 import "./Card.css";
 
-function Card({ stance, name, obstacle, tutorial }) {
+function Card({ stance, name, obstacle, tutorial, id, deleteTrick }) {
   return (
     <div className="card">
       <p>{stance}</p>
       <p>{name}</p>
       <p>{obstacle}</p>
       <a href={tutorial}>{tutorial}</a>
-      <p>🗑️</p>
+      <button
+        onClick={() => {
+          deleteTrick(id);
+        }}
+      >
+        🗑️
+      </button>
     </div>
   );
 }

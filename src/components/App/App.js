@@ -3,7 +3,11 @@ import React from "react";
 import Tricks from "../Tricks/Tricks";
 import Form from "../Form/Form";
 import { useState, useEffect } from "react";
-import { getTricksApiCall, postNewTrickApiCall } from "../../apiCalls.js";
+import {
+  getTricksApiCall,
+  postNewTrickApiCall,
+  deleteTrickApiCall,
+} from "../../apiCalls.js";
 
 function App() {
   const [tricks, setTricks] = useState([]);
@@ -117,23 +121,15 @@ function App() {
     //   });
   }
 
-  function deleteTrick() {
-    deleteTrick()
+  function deleteTrick(id) {
+    console.log(id);
+    deleteTrickApiCall(id)
       .then((data) => {
-        console.log("Posted data", data);
+        console.log("Trick Deleted Data Returned", data);
         setTricks([...tricks, data]);
       })
       .catch((error) => {
         console.log(error.message);
-        if (error.message === "500") {
-          setError(
-            "Oopsy daisy, looks like something went wrong, please try again later!"
-          );
-        } else {
-          setError(
-            "Hmmmm, not sure what happened there, check your URL and try again"
-          );
-        }
       });
   }
 
@@ -147,7 +143,7 @@ function App() {
     <div className="App">
       <h1>Sick Trick Wish List</h1>
       <Form addTrick={addTrick} />
-      <Tricks tricks={tricks} />
+      <Tricks tricks={tricks} deleteTrick={deleteTrick} />
       {error && <h2 className="network-error">{error}</h2>}
     </div>
   );
