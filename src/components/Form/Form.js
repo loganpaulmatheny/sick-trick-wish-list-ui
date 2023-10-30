@@ -40,6 +40,7 @@ function Form({ addTrick }) {
   return (
     <div>
       <select
+        name="stance"
         value={stance}
         onChange={(event) => setStance(event.target.value)}
       >
@@ -54,6 +55,7 @@ function Form({ addTrick }) {
         onChange={(event) => setName(event.target.value)}
       />
       <select
+        name="obstacle"
         value={obstacle}
         onChange={(event) => setObstacle(event.target.value)}
       >
