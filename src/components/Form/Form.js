@@ -2,9 +2,9 @@ import "../Form/Form.css";
 import { useState } from "react";
 
 function Form({ addTrick }) {
-  const [stance, setStance] = useState("");
+  const [stance, setStance] = useState("Regular");
   const [name, setName] = useState("");
-  const [obstacle, setObstacle] = useState("");
+  const [obstacle, setObstacle] = useState("Flatground");
   const [tutorial, setTutorial] = useState("");
   const [formError, setFormError] = useState("");
 

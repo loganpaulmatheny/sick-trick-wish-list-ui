@@ -3,7 +3,7 @@ import React from "react";
 import Tricks from "../Tricks/Tricks";
 import Form from "../Form/Form";
 import { useState, useEffect } from "react";
-// import { getTricksApiCall } from "../../apiCalls.js";
+import { getTricksApiCall, postNewTrickApiCall } from "../../apiCalls.js";
 
 function App() {
   const [tricks, setTricks] = useState([]);
@@ -34,13 +34,8 @@ function App() {
   // ];
 
   function getTricks() {
-    fetch("http://localhost:3001/api/v1/tricks")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
+    clearError();
+    getTricksApiCall()
       .then((data) => {
         setTricks(data);
       })
@@ -52,23 +47,29 @@ function App() {
           setError("There may be an error on our end, please try again later");
         }
       });
+    // fetch("http://localhost:3001/api/v1/tricks")
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error(response.status);
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     setTricks(data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //     if (error.message === "404") {
+    //       setError("Try checking your URL");
+    //     } else {
+    //       setError("There may be an error on our end, please try again later");
+    //     }
+    //   });
   }
 
   function addTrick(newTrick) {
     clearError();
-    fetch("http://localhost:3001/api/v1/tricks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newTrick),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status);
-        }
-        return response.json();
-      })
+    postNewTrickApiCall(newTrick)
       .then((data) => {
         console.log("Posted data", data);
         setTricks([...tricks, data]);
@@ -85,6 +86,35 @@ function App() {
           );
         }
       });
+    // fetch("http://localhost:3001/api/v1/tricks", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newTrick),
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error(response.status);
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log("Posted data", data);
+    //     setTricks([...tricks, data]);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //     if (error.message === "500") {
+    //       setError(
+    //         "Oopsy daisy, looks like something went wrong, please try again later!"
+    //       );
+    //     } else {
+    //       setError(
+    //         "Hmmmm, not sure what happened there, check your URL and try again"
+    //       );
+    //     }
+    //   });
   }
 
   useEffect(() => getTricks(), []);
