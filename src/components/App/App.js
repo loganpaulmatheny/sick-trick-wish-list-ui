@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import Tricks from "../Tricks/Tricks";
+import Form from "../Form/Form";
 import { useState, useEffect } from "react";
 // import { getTricksApiCall } from "../../apiCalls.js";
 
@@ -58,6 +59,7 @@ function App() {
   return (
     <div className="App">
       <h1>Sick Trick Wish List</h1>
+      <Form />
       <Tricks tricks={tricks} />
     </div>
   );
